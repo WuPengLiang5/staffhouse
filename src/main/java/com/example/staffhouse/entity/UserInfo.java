@@ -1,6 +1,6 @@
 package com.example.staffhouse.entity;
 
-public class User {
+public class UserInfo {
     private Integer id;
     private String loginName;
     private String password;
