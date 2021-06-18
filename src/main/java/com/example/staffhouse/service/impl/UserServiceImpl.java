@@ -23,6 +23,26 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<UserInfo> listUserInfoByUserStatus(int status) {
+        return userDao.listUserInfoByUserStatus(status);
+    }
+
+    @Override
+    public UserInfo getUserInfoByUserName(String userName) {
+        return userDao.getUserInfoByUserName(userName);
+    }
+
+    @Override
+    public void updateUserInfoById(UserInfo userInfo) {
+         userDao.updateUserInfoById(userInfo);
+    }
+
+    @Override
+    public void saveUserInfo(UserInfo userInfo) {
+        userDao.saveUserInfo(userInfo);
+    }
+
+    @Override
     public UserInfo getUserByLoginName(String loginName) {
         return userDao.getUserInfoByLoginName(loginName);
     }

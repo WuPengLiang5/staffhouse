@@ -12,6 +12,15 @@ import java.util.List;
 public interface UserDao {
     List<UserInfo> listUserInfo();
 
+    List<UserInfo> listUserInfoByUserStatus(int status);
+
+    UserInfo getUserInfoByUserName(String userName);
+
+    int updateUserInfoById(UserInfo userInfo);
+
+    int saveUserInfo(UserInfo userInfo);
+
     UserInfo getUserInfoByLoginName(@Param("loginName")String loginName);
+
 
 }
