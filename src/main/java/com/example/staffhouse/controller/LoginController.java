@@ -4,18 +4,27 @@ import com.example.staffhouse.entity.UserInfo;
 import com.example.staffhouse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
 
 /**
  * @author NIIT
  */
+@RestController
+@RequestMapping("/login")
 public class LoginController {
 
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/login")
+    /**
+     *
+     * @param session
+     * @param userInfo
+     * @return
+     */
+    @RequestMapping("/doLogin")
     public UserInfo login(HttpSession session, UserInfo userInfo){
         UserInfo user = userService.getUserByLoginName(userInfo.getLoginName());
         String rawPassword = userInfo.getPassword();
