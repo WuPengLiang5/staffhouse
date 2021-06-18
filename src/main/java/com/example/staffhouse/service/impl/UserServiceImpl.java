@@ -43,4 +43,14 @@ public class UserServiceImpl implements UserService {
     public UserInfo getUserByLoginName(String loginName) {
         return userDao.getUserInfoByLoginName(loginName);
     }
+
+    /**
+     * 人脸登录
+     * @param base
+     * @return
+     */
+    @Override
+    public UserInfo faceLogin(String base) {
+        return null;
+    }
 }

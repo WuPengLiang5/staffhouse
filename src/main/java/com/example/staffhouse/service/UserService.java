@@ -29,4 +29,11 @@ public interface UserService {
      * @return
      */
     public UserInfo getUserByLoginName(String loginName);
+
+    /**
+     * 人脸登录
+     * @param base
+     * @return
+     */
+    public UserInfo faceLogin(String base);
 }
