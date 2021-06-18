@@ -1,5 +1,6 @@
 package com.example.staffhouse.controller;
 
+import com.example.staffhouse.entity.PathDTO;
 import com.example.staffhouse.entity.UserInfo;
 import com.example.staffhouse.entity.Message;
 import com.example.staffhouse.service.UserService;
@@ -91,9 +92,9 @@ public class LoginController {
         //把用户照片保存到本地
         String path = request.getServletContext().getRealPath("/") + "headphoto\\";
         String urlPath = request.getContextPath() + "/headphoto/" + loginUser.getId() + ".jpg";
-//        PathDTO pathDTO = userInfoDOService.writeImgToDisc(base, path, urlPath, loginUser);
+        PathDTO pathDTO = userService.writeImgToDisc(base, path, urlPath, loginUser);
         //更新人脸信息
-//        userService.updateUserFace(pathDTO,loginUser);
+        userService.updateUserFace(pathDTO,loginUser);
         //生成返回信息
         Message message = new Message();
         message.setMessage("注册成功");
