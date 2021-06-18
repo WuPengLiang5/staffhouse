@@ -22,7 +22,7 @@ public class LoginController {
     private UserService userService;
 
     /**
-     *
+     * 登录
      * @param session
      * @param userInfo
      * @return
