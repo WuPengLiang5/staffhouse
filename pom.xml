@@ -43,6 +43,21 @@
             <version>4.12</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- baidu faceid -->
+        <dependency>
+            <groupId>com.baidu.aip</groupId>
+            <artifactId>java-sdk</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+
+        <!-- base64 encode and decode -->
+        <!-- https://mvnrepository.com/artifact/commons-codec/commons-codec -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.14</version>
+        </dependency>
     </dependencies>
 
     <build>
