@@ -52,8 +52,8 @@ public class NoticeDaoTest {
         Notice notice = noticeDao.getNoticeById(9999);
         System.out.println(notice.getTitle());
         System.out.println(notice.getContent());
-        System.out.println(notice.getUser_id());
-        System.out.println(notice.getCreate_date());
+        System.out.println(notice.getUserId());
+        System.out.println(notice.getCreateDate());
         System.out.println(notice.getId());
     }
 
