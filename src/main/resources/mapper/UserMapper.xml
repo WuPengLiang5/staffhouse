@@ -11,6 +11,7 @@
         <result column="faceurl" property="faceUrl" jdbcType="VARCHAR"/>
         <result column="facepath" property="facePath" jdbcType="VARCHAR"/>
     </resultMap>
+    
     <sql id="Base_Column_List">
         id,loginname,password,status,create_date,username,faceurl,facepath
     </sql>
@@ -31,9 +32,12 @@
 
     <select id="getUserInfoByUserName" resultType="com.example.staffhouse.entity.UserInfo" resultMap="BaseResultMap">
         select * from user_inf where username = #{userName}
+    </select>
+
     <select id="getUserInfoByUserName" resultType="com.example.staffhouse.entity.UserInfo">
         select * from user_inf where username = #{userName} ORDER BY id ASC
     </select>
+
     <select id="getUserInfoById" resultType="com.example.staffhouse.entity.UserInfo">
         select * from user_inf where id = #{userId}
     </select>
