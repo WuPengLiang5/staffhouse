@@ -16,8 +16,8 @@
         id,loginname,password,status,create_date,username,faceurl,facepath
     </sql>
 
-    <update id="updateFaceUserInfo">
-        update
+    <update id="updateFaceUserInfo" parameterType="com.example.staffhouse.entity.UserInfo">
+        update user_inf set facepath=#{facePath}, faceurl=#{faceUrl} where id=#{id}
     </update>
 
     <update id="updateUserPassword" parameterType="com.example.staffhouse.entity.UserInfo">
