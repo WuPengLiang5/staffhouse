@@ -48,9 +48,6 @@ public class UserInfoControllerTest {
     @Test
     public void testLogin(){
         try {
-//            UserInfo userInfo=new UserInfo();
-//            userInfo.setLoginName("123");
-//            userInfo.setPassword("123");
             MvcResult mvcResult = mockMvc.perform(
                     MockMvcRequestBuilders.post("/login")
                             .contentType(MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -58,7 +55,8 @@ public class UserInfoControllerTest {
                             .param("loginName","132")
                             .param("password","121221")
                             .characterEncoding("utf-8")
-                            .accept(MediaType.APPLICATION_JSON_UTF8_VALUE))
+                            .accept(MediaType.APPLICATION_JSON_UTF8_VALUE)
+                            .session(session))
                     .andExpect(MockMvcResultMatchers.status().isOk())
                     .andDo(MockMvcResultHandlers.print())
                     .andReturn();

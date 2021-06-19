@@ -43,6 +43,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserInfo getUserInfoById(Integer userId) {
+        return userDao.getUserInfoById(userId);
+    }
+
+    @Override
     public UserInfo getUserByLoginName(String loginName) {
         return userDao.getUserInfoByLoginName(loginName);
     }
@@ -90,5 +95,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUserFace(PathDTO pathDTO, UserInfo loginUser) {
 
+    }
+
+    /**
+     * 更新密码
+     * @param userInfo
+     */
+    @Override
+    public void updateUserPassword(UserInfo userInfo) {
+        userDao.updateUserPassword(userInfo);
     }
 }
