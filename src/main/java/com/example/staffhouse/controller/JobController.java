@@ -47,7 +47,7 @@ public class JobController {
      * 不分页
      * @return
      */
-    @GetMapping("/getAlljobs")
+    @GetMapping("/getAllJobs")
     public SysResult getAllJobs(){
         return SysResult.success("职位查询成功",jobService.getAllJobs());
     }

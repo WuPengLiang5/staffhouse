@@ -33,19 +33,19 @@
     from employee_inf
     where id = #{id,jdbcType=INTEGER}
   </select>
-    <select id="getEmployeeByLike" resultType="com.example.staffhouse.entity.EmployeeInf">
+    <select id="getEmployeeByLike" resultMap="BaseResultMap">
       select * from employee_inf
       where 1=1
       <if test="deptId!=null and deptId!=''">
-        and dept_id=#{deptId}
+        and dep_id=#{deptId}
       </if>
       <if test="jobId!=null and jobId!=''">
-        and job_d=#{jobId}
+        and job_id=#{jobId}
       </if>
       <if test="name!=null and name!=''">
         and `name` like concat('%',#{name},'%')
       </if>
-      <if test="sex!=nul and sex!=''">
+      <if test="sex!=null and sex!=''">
         and sex=#{sex}
       </if>
       <if test="phone!=null and phone!=''">
@@ -57,15 +57,15 @@
     select count(1) from employee_inf
     where 1=1
     <if test="deptId!=null and deptId!=''">
-      and dept_id=#{deptId}
+      and dep_id=#{deptId}
     </if>
     <if test="jobId!=null and jobId!=''">
-      and job_d=#{jobId}
+      and job_id=#{jobId}
     </if>
     <if test="name!=null and name!=''">
       and `name` like concat('%',#{name},'%')
     </if>
-    <if test="sex!=nul and sex!=''">
+    <if test="sex!=null and sex!=''">
       and sex=#{sex}
     </if>
     <if test="phone!=null and phone!=''">

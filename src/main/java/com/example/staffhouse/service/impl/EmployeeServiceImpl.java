@@ -2,13 +2,15 @@ package com.example.staffhouse.service.impl;
 
 import com.example.staffhouse.Vo.PageObject;
 import com.example.staffhouse.dao.EmployeeInfDao;
-import com.example.staffhouse.entity.Employee;
 import com.example.staffhouse.entity.EmployeeInf;
 import com.example.staffhouse.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -35,6 +37,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Integer addEmployee(EmployeeInf employee) {
+        DateFormat df = DateFormat.getDateInstance(DateFormat.LONG, Locale.CHINA);
+        String date = df.format(new Date());
+        employee.setCreateDate(date);
         return employeeInfDao.insertSelective(employee);
     }
 }
