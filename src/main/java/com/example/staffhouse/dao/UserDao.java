@@ -14,7 +14,7 @@ public interface UserDao {
 
     List<UserInfo> listUserInfoByUserStatus(int status);
 
-    UserInfo getUserInfoByUserName(String userName);
+    List<UserInfo> getUserInfoByUserName(String userName);
 
     int updateUserInfoById(UserInfo userInfo);
 

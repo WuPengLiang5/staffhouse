@@ -40,7 +40,7 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping("/getUserInfoByUserName")
-    public UserInfo listUserInfoByStatus(@RequestParam String userName){
+    public List<UserInfo> listUserInfoByStatus(@RequestParam String userName){
         return userService.getUserInfoByUserName(userName);
     }
 
