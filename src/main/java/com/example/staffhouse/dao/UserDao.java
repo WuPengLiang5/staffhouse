@@ -20,6 +20,8 @@ public interface UserDao {
 
     int saveUserInfo(UserInfo userInfo);
 
+    int deleteUserById(int id);
+
     UserInfo getUserInfoByLoginName(@Param("loginName")String loginName);
 
     /**
@@ -28,6 +30,8 @@ public interface UserDao {
      * @return
      */
     UserInfo getUserInfoById(Integer userId);
+
+    int updateFaceUserInfo(UserInfo userInfo);
 
     void updateUserPassword(UserInfo userInfo);
 }

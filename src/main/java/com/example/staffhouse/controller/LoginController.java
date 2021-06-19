@@ -6,11 +6,13 @@ import com.example.staffhouse.entity.Message;
 import com.example.staffhouse.entity.UserLoginDTO;
 import com.example.staffhouse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 /**
@@ -47,12 +49,11 @@ public class LoginController {
 
     /**
      * 人脸登录
-     *
      * @param base
      * @return
      */
     @RequestMapping("/faceLogin")
-    public UserLoginDTO faceLogin(String base) {
+    public UserLoginDTO faceLogin(@RequestParam String base){
         System.out.println(base);
         UserInfo loginUser = userService.faceLogin(base);
         return new UserLoginDTO(loginUser.getId(), loginUser.getLoginName(), loginUser.getStatus());
@@ -60,21 +61,23 @@ public class LoginController {
 
     /**
      * 人脸注册
-     *
-     * @param base
-     * @param userId
+     * @param map
      * @return
      */
     @RequestMapping("/faceRegister")
-    public @ResponseBody
-    Message faceRegister(String base, Integer userId) {
-        UserInfo loginUser = userService.getUserInfoById(userId);
+    public @ResponseBody Message faceRegister(@RequestBody Map<String, String> map) throws FileNotFoundException {
+        System.out.println(map);
+        String base = map.get("base");
+        String userId = map.get("userId");
+        UserInfo loginUser = userService.getUserInfoById(Integer.valueOf(userId));
+        System.out.println(base);
         //把用户照片保存到本地
-//        String path = request.getServletContext().getRealPath("/") + "headphoto\\";
-//        String urlPath = request.getContextPath() + "/headphoto/" + loginUser.getId() + ".jpg";
-//        PathDTO pathDTO = userService.writeImgToDisc(base, path, urlPath, loginUser);
+        String path = ResourceUtils.getURL("src/main/resources/static/faceImage/").getPath();
+        System.out.println(path);
+        String urlPath = path + loginUser.getId() + ".jpg";
+        PathDTO pathDTO = userService.writeImgToDisc(base, path, urlPath, loginUser);
         //更新人脸信息
-//        userService.updateUserFace(pathDTO,loginUser);
+        userService.updateUserFace(pathDTO,loginUser);
         //生成返回信息
         Message message = new Message();
         message.setMessage("注册成功");
