@@ -22,5 +22,10 @@ public interface UserDao {
 
     UserInfo getUserInfoByLoginName(@Param("loginName")String loginName);
 
-
+    /**
+     * 通过ID查找用户
+     * @param userId
+     * @return
+     */
+    UserInfo getUserInfoById(Integer userId);
 }

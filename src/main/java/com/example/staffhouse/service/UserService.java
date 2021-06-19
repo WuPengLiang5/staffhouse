@@ -25,6 +25,13 @@ public interface UserService {
     public void saveUserInfo(UserInfo userInfo);
 
     /**
+     * 根据Id查找用户信息
+     * @param userId
+     * @return
+     */
+    public UserInfo getUserInfoById(Integer userId);
+
+    /**
      * 根据id拿到登录用户的最新信息
      * @param loginName
      * @return
