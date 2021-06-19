@@ -3,6 +3,7 @@ package com.example.staffhouse.controller;
 import com.example.staffhouse.entity.PathDTO;
 import com.example.staffhouse.entity.UserInfo;
 import com.example.staffhouse.entity.Message;
+import com.example.staffhouse.entity.UserLoginDTO;
 import com.example.staffhouse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -65,38 +66,30 @@ public class LoginController {
     /**
      * 人脸登录
      * @param base
-     * @param session
      * @return
      */
     @RequestMapping("/faceLogin")
-    public Message faceLogin(String base, HttpSession session){
+    public UserLoginDTO faceLogin(String base){
+        System.out.println(base);
         UserInfo loginUser = userService.faceLogin(base);
-        Message message = new Message();
-        message.setMessage("login");
-        if(loginUser != null){
-            //登录成功
-            session.setAttribute("loginUser", loginUser);
-            message.setMessage("index");
-            return message;
-        }
-        return message;
+        return new UserLoginDTO(loginUser.getId(), loginUser.getLoginName(), loginUser.getStatus());
     }
 
     /**
      * 人脸注册
      * @param base
-     * @param request
+     * @param userId
      * @return
      */
     @RequestMapping("/faceRegister")
-    public @ResponseBody Message faceRegister(String base, HttpServletRequest request){
-        UserInfo loginUser = (UserInfo) request.getSession().getAttribute("loginUser");
+    public @ResponseBody Message faceRegister(String base, Integer userId){
+        UserInfo loginUser = userService.getUserInfoById(userId);
         //把用户照片保存到本地
-        String path = request.getServletContext().getRealPath("/") + "headphoto\\";
-        String urlPath = request.getContextPath() + "/headphoto/" + loginUser.getId() + ".jpg";
-        PathDTO pathDTO = userService.writeImgToDisc(base, path, urlPath, loginUser);
+//        String path = request.getServletContext().getRealPath("/") + "headphoto\\";
+//        String urlPath = request.getContextPath() + "/headphoto/" + loginUser.getId() + ".jpg";
+//        PathDTO pathDTO = userService.writeImgToDisc(base, path, urlPath, loginUser);
         //更新人脸信息
-        userService.updateUserFace(pathDTO,loginUser);
+//        userService.updateUserFace(pathDTO,loginUser);
         //生成返回信息
         Message message = new Message();
         message.setMessage("注册成功");

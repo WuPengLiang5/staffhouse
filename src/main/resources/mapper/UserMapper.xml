@@ -17,4 +17,7 @@
     <select id="getUserInfoByUserName" resultType="com.example.staffhouse.entity.UserInfo">
         select * from user_inf where username = #{userName} ORDER BY id ASC
     </select>
+    <select id="getUserInfoById" resultType="com.example.staffhouse.entity.UserInfo">
+        select * from user_inf where id = #{userId}
+    </select>
 </mapper>
