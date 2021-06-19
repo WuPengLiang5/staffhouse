@@ -20,6 +20,8 @@ public interface UserDao {
 
     int saveUserInfo(UserInfo userInfo);
 
+    int deleteUserById(int id);
+
     UserInfo getUserInfoByLoginName(@Param("loginName")String loginName);
 
 

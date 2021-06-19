@@ -11,18 +11,38 @@ public interface UserService {
      * @return
      */
     public List<UserInfo> listUserInfo();
-    /*通过权限查询用户*/
 
+    /**
+     * 通过权限查询用户
+     * @param status
+     * @return
+     */
     public List<UserInfo> listUserInfoByUserStatus(int status);
 
-    /*通过用户名查询用户*/
+    /**
+     * 通过用户名查询用户
+     * @param userName
+     * @return
+     */
     public UserInfo getUserInfoByUserName(String userName);
 
-    /*修改用户信息*/
+    /**
+     * 修改用户信息
+     * @param userInfo
+     */
     public void updateUserInfoById(UserInfo userInfo);
 
-    /*增加用户*/
+    /**
+     * 增加用户
+     * @param userInfo
+     */
     public void saveUserInfo(UserInfo userInfo);
+
+    /**
+     * 删除用户
+     * @param id
+     */
+    public void deleteUserById(int id);
 
     /**
      * 根据id拿到登录用户的最新信息
