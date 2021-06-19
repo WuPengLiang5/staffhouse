@@ -28,14 +28,14 @@ public class LoginController {
      * @return
      */
     @RequestMapping("/doLogin")
-    public UserInfo login(HttpSession session, UserInfo userInfo){
+    public UserInfo login(HttpSession session,@RequestBody UserInfo userInfo){
         UserInfo user = userService.getUserByLoginName(userInfo.getLoginName());
         String rawPassword = userInfo.getPassword();
         System.out.println(user.getLoginName());
         String rightPassword = user.getPassword();
         System.out.println(rightPassword);
         if (rawPassword.equalsIgnoreCase(rightPassword)){
-            session.setAttribute("user", user);
+            user.setPassword("");
             return user;
         }
         else{
@@ -45,19 +45,6 @@ public class LoginController {
             user_not.setLoginName("notfound");
             return user_not;
         }
-//        if (MD5Util.verify(rawPassword, rightPassword)){
-//            // 写入session 用户的id和用户的权限
-//            session.setAttribute("user", user);
-////            System.out.println("登录成功！");
-//            return user;
-//        }
-//        else{
-//            UserInfo user_not = new UserInfo();
-//            user_not.setStatus(-1);
-//            user_not.setUserName("notfound");
-//            user_not.setLoginName("notfound");
-//            return user_not;
-//        }
     }
 
     /**
@@ -99,5 +86,23 @@ public class LoginController {
         Message message = new Message();
         message.setMessage("注册成功");
         return message;
+    }
+
+    /**
+     * 更新密码
+     * @param loginName
+     * @param password
+     * @param newPassword
+     * @return
+     */
+    @RequestMapping("/updateUserPassword")
+    public boolean updateUserPassword(@RequestParam String loginName,
+                                       @RequestParam String password,
+                                       @RequestParam String newPassword){
+        UserInfo userInfo=userService.getUserByLoginName(loginName);
+        if (userInfo.getPassword()!=password){
+            return false;
+        }
+        return true;
     }
 }
