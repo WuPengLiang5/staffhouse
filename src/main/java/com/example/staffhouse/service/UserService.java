@@ -11,6 +11,7 @@ public interface UserService {
      * @return
      */
     public List<UserInfo> listUserInfo();
+    /*通过权限查询用户*/
 
     /**
      * 通过权限查询用户
@@ -45,6 +46,13 @@ public interface UserService {
     public void deleteUserById(int id);
 
     /**
+     * 根据Id查找用户信息
+     * @param userId
+     * @return
+     */
+    public UserInfo getUserInfoById(Integer userId);
+
+    /**
      * 根据id拿到登录用户的最新信息
      * @param loginName
      * @return
@@ -74,4 +82,10 @@ public interface UserService {
      * @param loginUser
      */
     public void updateUserFace(PathDTO pathDTO, UserInfo loginUser);
+
+    /**
+     * 更新密码
+     * @param userInfo
+     */
+    public void updateUserPassword(UserInfo userInfo);
 }

@@ -14,7 +14,9 @@
     <sql id="Base_Column_List">
         id,loginname,password,status,create_date,username,faceurl,facepath
     </sql>
-
+    <update id="updateUserPassword" parameterType="com.example.staffhouse.entity.UserInfo">
+        update user_inf set password=#{password} where id=#{id}
+    </update>
     <select id="listUserInfo" resultType="com.example.staffhouse.entity.UserInfo" resultMap="BaseResultMap">
         select * from user_inf order by status ASC
     </select>
@@ -29,6 +31,11 @@
 
     <select id="getUserInfoByUserName" resultType="com.example.staffhouse.entity.UserInfo" resultMap="BaseResultMap">
         select * from user_inf where username = #{userName}
+    <select id="getUserInfoByUserName" resultType="com.example.staffhouse.entity.UserInfo">
+        select * from user_inf where username = #{userName} ORDER BY id ASC
+    </select>
+    <select id="getUserInfoById" resultType="com.example.staffhouse.entity.UserInfo">
+        select * from user_inf where id = #{userId}
     </select>
 
     <update id="updateUserInfoById" parameterType="com.example.staffhouse.entity.UserInfo">

@@ -7,6 +7,14 @@ public class Notice {
     private String content;
     private String createDate;
 
+    public Notice(Integer id, Integer userId, String title, String content, String createDate) {
+        this.id = id;
+        this.userId = userId;
+        this.title = title;
+        this.content = content;
+        this.createDate = createDate;
+    }
+
     public Integer getId() {
         return id;
     }
@@ -15,13 +23,6 @@ public class Notice {
         this.id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
 
     public String getTitle() {
         return title;
@@ -37,6 +38,14 @@ public class Notice {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
     public String getCreateDate() {
