@@ -74,7 +74,7 @@ public class LoginController {
         //把用户照片保存到本地
         String path = ResourceUtils.getURL("src/main/resources/static/faceImage/").getPath();
         System.out.println(path);
-        String urlPath = path + loginUser.getId() + ".jpg";
+        String urlPath = "src/main/resources/static/faceImage"+ loginUser.getId() + ".jpg";
         PathDTO pathDTO = userService.writeImgToDisc(base, path, urlPath, loginUser);
         //更新人脸信息
         userService.updateUserFace(pathDTO,loginUser);

@@ -25,7 +25,7 @@ public interface UserService {
      * @param userName
      * @return
      */
-    public UserInfo getUserInfoByUserName(String userName);
+    public List<UserInfo> getUserInfoByUserName(String userName);
 
     /**
      * 修改用户信息
