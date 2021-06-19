@@ -76,6 +76,12 @@
     delete from employee_inf
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteEmployees">
+    delete from employee_inf where id in
+    <foreach collection="array" open="(" close=")" item="ids" separator="," >
+      #{ids}
+    </foreach>
+  </delete>
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.staffhouse.entity.EmployeeInf" useGeneratedKeys="true">
     insert into employee_inf (dep_id, job_id, `name`, 
       card_id, address, post_code, 

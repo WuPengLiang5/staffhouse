@@ -42,4 +42,9 @@ public class JobServiceImpl implements JobService {
     public List<JobInf> getAllJobs() {
         return jobInfDao.selectAll();
     }
+
+    @Override
+    public Integer deleteJob(Integer id) {
+        return jobInfDao.deleteByPrimaryKey(id);
+    }
 }

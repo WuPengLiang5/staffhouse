@@ -21,5 +21,7 @@ public interface EmployeeInfDao {
     List<EmployeeInf> getEmployeeByLike(@Param("deptId") Integer deptId, @Param("jobId") Integer jobId, @Param("sex") Integer sex, @Param("name") String name, @Param("phone") String phone, @Param("page") Integer page, @Param("limit") Integer limit);
 
     Number countEmployeeByLike(Integer deptId, Integer jobId, Integer sex, String name, String phone);
+
+    Integer deleteEmployees(@Param("ids") String[] ids);
 }
 

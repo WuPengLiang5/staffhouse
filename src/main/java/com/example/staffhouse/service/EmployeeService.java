@@ -10,4 +10,6 @@ public interface EmployeeService {
 
     Integer addEmployee(EmployeeInf employee);
 
+    Integer deleteEmployee(Integer id);
 }
+

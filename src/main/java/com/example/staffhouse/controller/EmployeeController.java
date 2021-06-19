@@ -55,4 +55,16 @@ public class EmployeeController {
         }
         return SysResult.success("员工添加成功",key);
     }
+
+    @DeleteMapping("/deleteEmployees")
+    public SysResult deleteEmployees(Integer[] ids){
+        Integer key = 0;
+        for(int i =0;i<ids.length;i++){
+            key+=employeeService.deleteEmployee(ids[i]);
+        }
+        if(key==0){
+            return SysResult.fail("员工删除失败");
+        }
+        return SysResult.success("删除了"+key+"条数据",null);
+    }
 }

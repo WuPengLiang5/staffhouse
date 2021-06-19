@@ -42,4 +42,9 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setCreateDate(date);
         return employeeInfDao.insertSelective(employee);
     }
+
+    @Override
+    public Integer deleteEmployee(Integer id) {
+        return employeeInfDao.deleteByPrimaryKey(id);
+    }
 }
