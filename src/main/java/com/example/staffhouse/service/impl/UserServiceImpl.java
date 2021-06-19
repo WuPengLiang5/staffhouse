@@ -6,9 +6,11 @@ import com.example.staffhouse.entity.PathDTO;
 import com.example.staffhouse.entity.UserInfo;
 import com.example.staffhouse.service.UserService;
 import com.example.staffhouse.util.FaceClient;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.*;
 import java.util.List;
 
 @Service
@@ -84,6 +86,52 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public PathDTO writeImgToDisc(String base, String path, String urlPath, UserInfo loginUser) {
+        File uploadDir = new File(path);
+        if(!uploadDir.exists() && !uploadDir.isDirectory()){
+            uploadDir.mkdirs();
+        }
+
+        // d://..../main/resource/static/faceImage/id.jpg
+        path += loginUser.getId() + ".jpg";
+
+        OutputStream out = null;
+        InputStream in = null;
+
+        //从base64加密的字符串中恢复出图像的字节数组
+        byte[] imgByte = Base64.decodeBase64(base);
+
+        for(int i = 0 ; i < imgByte.length ; i++){
+            if(imgByte[i] < 0){
+                //调整异常数据
+                imgByte[i] += 256;
+            }
+        }
+        try {
+            out = new FileOutputStream(path);
+            in = new ByteArrayInputStream(imgByte);
+
+            byte[] buf = new byte[1024];
+            int len = 0;
+            while((len = in.read(buf)) != -1){
+                out.write(buf, 0 , len);
+            }
+            PathDTO pathDTO = new PathDTO();
+            pathDTO.setPath(path);
+            pathDTO.setUrlPath(urlPath);
+            return pathDTO;
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally{
+            try {
+                assert in != null;
+                in.close();
+                out.close();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
         return null;
     }
 
@@ -94,6 +142,8 @@ public class UserServiceImpl implements UserService {
      */
     @Override
     public void updateUserFace(PathDTO pathDTO, UserInfo loginUser) {
-
+        loginUser.setFacePath(pathDTO.getPath());
+        loginUser.setFaceUrl(pathDTO.getUrlPath());
+        userDao.updateFaceUserInfo(loginUser);
     }
 }

@@ -28,4 +28,6 @@ public interface UserDao {
      * @return
      */
     UserInfo getUserInfoById(Integer userId);
+
+    int updateFaceUserInfo(UserInfo userInfo);
 }
