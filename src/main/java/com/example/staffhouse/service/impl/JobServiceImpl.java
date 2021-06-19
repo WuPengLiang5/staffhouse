@@ -37,4 +37,9 @@ public class JobServiceImpl implements JobService {
     public Integer addJob(JobInf job) {
         return jobInfDao.insertSelective(job);
     }
+
+    @Override
+    public List<JobInf> getAllJobs() {
+        return jobInfDao.selectAll();
+    }
 }

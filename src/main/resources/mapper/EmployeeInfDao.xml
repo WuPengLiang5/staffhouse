@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.staffhouse.dao.EmployeeInfDao">
+  <resultMap id="BaseResultMap" type="com.example.staffhouse.entity.EmployeeInf">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="dep_id" jdbcType="INTEGER" property="depId" />
+    <result column="job_id" jdbcType="INTEGER" property="jobId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="card_id" jdbcType="VARCHAR" property="cardId" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="post_code" jdbcType="VARCHAR" property="postCode" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="qq_num" jdbcType="VARCHAR" property="qqNum" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="sex" jdbcType="INTEGER" property="sex" />
+    <result column="party" jdbcType="VARCHAR" property="party" />
+    <result column="birthday" jdbcType="CHAR" property="birthday" />
+    <result column="pace" jdbcType="VARCHAR" property="pace" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="speciality" jdbcType="VARCHAR" property="speciality" />
+    <result column="hobby" jdbcType="VARCHAR" property="hobby" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dep_id, job_id, `name`, card_id, address, post_code, tel, phone, qq_num, email, 
+    sex, party, birthday, pace, education, speciality, hobby, remark, create_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from employee_inf
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+    <select id="getEmployeeByLike" resultType="com.example.staffhouse.entity.EmployeeInf">
+      select * from employee_inf
+      where 1=1
+      <if test="deptId!=null and deptId!=''">
+        and dept_id=#{deptId}
+      </if>
+      <if test="jobId!=null and jobId!=''">
+        and job_d=#{jobId}
+      </if>
+      <if test="name!=null and name!=''">
+        and `name` like concat('%',#{name},'%')
+      </if>
+      <if test="sex!=nul and sex!=''">
+        and sex=#{sex}
+      </if>
+      <if test="phone!=null and phone!=''">
+        and phone=#{phone}
+      </if>
+      limit #{page},#{limit}
+    </select>
+  <select id="countEmployeeByLike" resultType="java.lang.Integer">
+    select count(1) from employee_inf
+    where 1=1
+    <if test="deptId!=null and deptId!=''">
+      and dept_id=#{deptId}
+    </if>
+    <if test="jobId!=null and jobId!=''">
+      and job_d=#{jobId}
+    </if>
+    <if test="name!=null and name!=''">
+      and `name` like concat('%',#{name},'%')
+    </if>
+    <if test="sex!=nul and sex!=''">
+      and sex=#{sex}
+    </if>
+    <if test="phone!=null and phone!=''">
+      and phone=#{phone}
+    </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from employee_inf
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.staffhouse.entity.EmployeeInf" useGeneratedKeys="true">
+    insert into employee_inf (dep_id, job_id, `name`, 
+      card_id, address, post_code, 
+      tel, phone, qq_num, 
+      email, sex, party, 
+      birthday, pace, education, 
+      speciality, hobby, remark, 
+      create_date)
+    values (#{depId,jdbcType=INTEGER}, #{jobId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, 
+      #{cardId,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{postCode,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{qqNum,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{party,jdbcType=VARCHAR}, 
+      #{birthday,jdbcType=CHAR}, #{pace,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, 
+      #{speciality,jdbcType=VARCHAR}, #{hobby,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.staffhouse.entity.EmployeeInf" useGeneratedKeys="true">
+    insert into employee_inf
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="depId != null">
+        dep_id,
+      </if>
+      <if test="jobId != null">
+        job_id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="cardId != null">
+        card_id,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="postCode != null">
+        post_code,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="qqNum != null">
+        qq_num,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="party != null">
+        party,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="pace != null">
+        pace,
+      </if>
+      <if test="education != null">
+        education,
+      </if>
+      <if test="speciality != null">
+        speciality,
+      </if>
+      <if test="hobby != null">
+        hobby,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="depId != null">
+        #{depId,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null">
+        #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNum != null">
+        #{qqNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="party != null">
+        #{party,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=CHAR},
+      </if>
+      <if test="pace != null">
+        #{pace,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null">
+        #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.staffhouse.entity.EmployeeInf">
+    update employee_inf
+    <set>
+      <if test="depId != null">
+        dep_id = #{depId,jdbcType=INTEGER},
+      </if>
+      <if test="jobId != null">
+        job_id = #{jobId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="cardId != null">
+        card_id = #{cardId,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="postCode != null">
+        post_code = #{postCode,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqNum != null">
+        qq_num = #{qqNum,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="party != null">
+        party = #{party,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=CHAR},
+      </if>
+      <if test="pace != null">
+        pace = #{pace,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null">
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="speciality != null">
+        speciality = #{speciality,jdbcType=VARCHAR},
+      </if>
+      <if test="hobby != null">
+        hobby = #{hobby,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.staffhouse.entity.EmployeeInf">
+    update employee_inf
+    set dep_id = #{depId,jdbcType=INTEGER},
+      job_id = #{jobId,jdbcType=INTEGER},
+      `name` = #{name,jdbcType=VARCHAR},
+      card_id = #{cardId,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      post_code = #{postCode,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      qq_num = #{qqNum,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=INTEGER},
+      party = #{party,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=CHAR},
+      pace = #{pace,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      speciality = #{speciality,jdbcType=VARCHAR},
+      hobby = #{hobby,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

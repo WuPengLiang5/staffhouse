@@ -12,6 +12,13 @@ public class JobController {
     @Autowired
     private JobService jobService;
 
+    /**
+     * 职位分页
+     * @param jobName
+     * @param page
+     * @param limit
+     * @return
+     */
     @GetMapping("/getAllJobsByLike")
     public SysResult getAllJobsByLike(String jobName, @RequestParam("page") Integer page,@RequestParam("limit") Integer limit){
 
@@ -34,5 +41,14 @@ public class JobController {
             return SysResult.fail("新增失败");
         }
         return SysResult.success("职位新增成功",key);
+    }
+
+    /**
+     * 不分页
+     * @return
+     */
+    @GetMapping("/getAlljobs")
+    public SysResult getAllJobs(){
+        return SysResult.success("职位查询成功",jobService.getAllJobs());
     }
 }

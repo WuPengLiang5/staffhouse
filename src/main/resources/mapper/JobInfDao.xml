@@ -30,6 +30,9 @@
       and `name` like concat('%',#{jobName},'%')
     </if>
   </select>
+  <select id="selectAll" resultType="com.example.staffhouse.entity.JobInf">
+    select * from job_inf
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from job_inf
     where id = #{id,jdbcType=INTEGER}

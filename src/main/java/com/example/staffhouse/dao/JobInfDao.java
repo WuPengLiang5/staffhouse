@@ -21,4 +21,6 @@ public interface JobInfDao {
     List<JobInf> getAllJobsByLike(@Param("jobName") String jobName, @Param("page") Integer page, @Param("limit") Integer limit);
 
     Number countAllJobsByLike(@Param("jobName") String jobName);
+
+    List<JobInf> selectAll();
 }

@@ -11,4 +11,7 @@ public interface JobService {
     Integer editJob(JobInf job);
 
     Integer addJob(JobInf job);
+
+    List<JobInf> getAllJobs();
+
 }
