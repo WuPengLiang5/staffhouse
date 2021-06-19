@@ -17,38 +17,38 @@ public class NoticeController {
     NoticeService noticeService;
 
     @RequestMapping("/listNotice")
-    List<Notice> listNotice() {
+    public List<Notice> listNotice() {
 
         return noticeService.listNotice();
     }
 
     @RequestMapping("/listNoticeByCreatDate")
-    List<Notice> listNoticeByCreatDate() {
+    public List<Notice> listNoticeByCreatDate() {
         return noticeService.listNoticeByCreatDate();
     }
 
     @RequestMapping("/listNoticeByUserId")
-    List<Notice> listNoticeByUserId() {
+    public List<Notice> listNoticeByUserId() {
         return noticeService.listNoticeByUserId();
     }
 
     @RequestMapping("/saveNotice")
-    void saveNotice(Notice notice) {
+    public void saveNotice(Notice notice) {
         noticeService.saveNotice(notice);
     }
 
     @RequestMapping("/deleteNotice")
-    void deleteNotice(Integer id) {
+    public void deleteNotice(Integer id) {
         noticeService.deleteNotice(id);
     }
 
     @RequestMapping("/updateNotice")
-    void updateNotice(Notice notice) {
+    public void updateNotice(Notice notice) {
         noticeService.updateNotice(notice);
     }
 
     @RequestMapping("/ getNoticeById")
-    Notice getNoticeById(Integer id) {
+    public Notice getNoticeById(Integer id) {
         return noticeService.getNoticeById(id);
     }
 }
