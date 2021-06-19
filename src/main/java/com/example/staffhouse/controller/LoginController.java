@@ -6,9 +6,7 @@ import com.example.staffhouse.entity.Message;
 import com.example.staffhouse.entity.UserLoginDTO;
 import com.example.staffhouse.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +23,7 @@ public class LoginController {
     private UserService userService;
 
     /**
-     *
+     * 登录
      * @param session
      * @param userInfo
      * @return
