@@ -27,27 +27,23 @@ public class LoginController {
 
     /**
      * 登录
-     * @param session
+     *
      * @param userInfo
      * @return
      */
     @RequestMapping("/doLogin")
-    public UserInfo login(HttpSession session,@RequestBody UserInfo userInfo){
+    public UserLoginDTO login(@RequestBody UserInfo userInfo) {
         UserInfo user = userService.getUserByLoginName(userInfo.getLoginName());
         String rawPassword = userInfo.getPassword();
-        System.out.println(user.getLoginName());
         String rightPassword = user.getPassword();
-        System.out.println(rightPassword);
-        if (rawPassword.equalsIgnoreCase(rightPassword)){
-            user.setPassword("");
-            return user;
-        }
-        else{
-            UserInfo user_not = new UserInfo();
-            user_not.setStatus(-1);
-            user_not.setUserName("notfound");
-            user_not.setLoginName("notfound");
-            return user_not;
+        if (rawPassword.equalsIgnoreCase(rightPassword)) {
+            UserLoginDTO userLoginDTO = new UserLoginDTO(user.getId(), user.getLoginName(), user.getStatus());
+            return userLoginDTO;
+        } else {
+            UserLoginDTO userLoginDTO = new UserLoginDTO();
+            userLoginDTO.setStatus(-1);
+            userLoginDTO.setLoginName("notfound");
+            return userLoginDTO;
         }
     }
 
@@ -64,10 +60,9 @@ public class LoginController {
     }
 
     /**
-     *
+     * 人脸注册
      * @param map
      * @return
-     * @throws FileNotFoundException
      */
     @RequestMapping("/faceRegister")
     public @ResponseBody Message faceRegister(@RequestBody Map<String, String> map) throws FileNotFoundException {
@@ -91,19 +86,22 @@ public class LoginController {
 
     /**
      * 更新密码
-     * @param loginName
-     * @param password
-     * @param newPassword
+     *
+     * @param map
      * @return
      */
     @RequestMapping("/updateUserPassword")
-    public boolean updateUserPassword(@RequestParam String loginName,
-                                       @RequestParam String password,
-                                       @RequestParam String newPassword){
-        UserInfo userInfo=userService.getUserByLoginName(loginName);
-        if (userInfo.getPassword()!=password){
+    public boolean updateUserPassword(@RequestBody Map<String, String> map) {
+        String loginName = map.get("loginName");
+        String password = map.get("password");
+        String newPassword = map.get("newPassword");
+        UserInfo userInfo = userService.getUserByLoginName(loginName);
+        if (!userInfo.getPassword().equalsIgnoreCase(password)) {
             return false;
+        } else {
+            userInfo.setPassword(newPassword);
+            userService.updateUserPassword(userInfo);
+            return true;
         }
-        return true;
     }
 }

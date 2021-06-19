@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.staffhouse.dao.UserDao" >
+    <resultMap id="BaseResultMap" type="com.example.staffhouse.entity.UserInfo">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="loginname" property="loginName" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="INTEGER"/>
+        <result column="create_date" property="createDate" jdbcType="VARCHAR"/>
+        <result column="username" property="userName" jdbcType="VARCHAR"/>
+        <result column="faceurl" property="faceUrl" jdbcType="VARCHAR"/>
+        <result column="facepath" property="facePath" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,loginname,password,status,create_date,username,faceurl,facepath
+    </sql>
 
     <update id="updateFaceUserInfo">
         update
     </update>
 
-    <select id="listUserInfo" resultType="com.example.staffhouse.entity.UserInfo">
-        select * from user_inf order by id ASC
+    <update id="updateUserPassword" parameterType="com.example.staffhouse.entity.UserInfo">
+        update user_inf set password=#{password} where id=#{id}
+    </update>
+
+    <select id="listUserInfo"  resultMap="BaseResultMap">
+        select * from user_inf order by status ASC
     </select>
 
-    <select resultType="com.example.staffhouse.entity.UserInfo" id="getUserInfoByLoginName">
+    <select resultMap="BaseResultMap" id="getUserInfoByLoginName">
         select * from user_inf where loginname = #{loginName} ORDER BY id DESC
     </select>
 
-    <select id="listUserInfoByUserStatus" resultType="com.example.staffhouse.entity.UserInfo">
+    <select id="listUserInfoByUserStatus" resultMap="BaseResultMap">
         select * from user_inf where status = #{status} order by id ASC
     </select>
 
-    <select id="getUserInfoByUserName" resultType="com.example.staffhouse.entity.UserInfo">
-        select * from user_inf where username = #{userName} ORDER BY id ASC
+    <select id="getUserInfoByUserName" resultMap="BaseResultMap">
+        select * from user_inf where username = #{userName}
     </select>
-    <select id="getUserInfoById" resultType="com.example.staffhouse.entity.UserInfo">
+
+    <select id="getUserInfoById" resultMap="BaseResultMap">
         select * from user_inf where id = #{userId}
     </select>
+
+    <update id="updateUserInfoById" parameterType="com.example.staffhouse.entity.UserInfo">
+        update user_inf set loginname = #{loginName}, status = #{status}, username = #{userName} where id = #{id}
+    </update>
+
+    <delete id="deleteUserById" parameterType="java.lang.Integer">
+        delete from user_inf where id = #{id}
+    </delete>
+
+    <insert id="saveUserInfo" parameterType="com.example.staffhouse.entity.UserInfo">
+        insert into user_inf (loginname,password,status,create_date,username)
+         values (#{loginName},#{password},#{status},#{createDate},#{userName})
+    </insert>
+
 </mapper>

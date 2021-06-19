@@ -37,6 +37,11 @@ public class UserInfoControllerTest {
         session = new MockHttpSession();
     }
 
+
+    @Test
+    public void Hellow(){
+        System.out.println("我我我我我我我我我我我我我我我我我我我我我我我我");
+    }
     /**
      * 测试login方法
      */
