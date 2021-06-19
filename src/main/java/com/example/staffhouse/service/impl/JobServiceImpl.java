@@ -27,4 +27,14 @@ public class JobServiceImpl implements JobService {
         Number total = jobInfDao.countAllJobsByLike(jobName);
         return new PageObject<>(total.longValue(),jobs);
     }
+
+    @Override
+    public Integer editJob(JobInf job) {
+        return jobInfDao.updateByPrimaryKeySelective(job);
+    }
+
+    @Override
+    public Integer addJob(JobInf job) {
+        return jobInfDao.insertSelective(job);
+    }
 }
