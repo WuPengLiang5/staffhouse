@@ -61,4 +61,10 @@ public interface UserService {
      * @param loginUser
      */
     public void updateUserFace(PathDTO pathDTO, UserInfo loginUser);
+
+    /**
+     * 更新密码
+     * @param userInfo
+     */
+    public void updateUserPassword(UserInfo userInfo);
 }

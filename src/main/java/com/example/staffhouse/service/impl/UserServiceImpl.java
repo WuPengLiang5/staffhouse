@@ -96,4 +96,13 @@ public class UserServiceImpl implements UserService {
     public void updateUserFace(PathDTO pathDTO, UserInfo loginUser) {
 
     }
+
+    /**
+     * 更新密码
+     * @param userInfo
+     */
+    @Override
+    public void updateUserPassword(UserInfo userInfo) {
+        userDao.updateUserPassword(userInfo);
+    }
 }
