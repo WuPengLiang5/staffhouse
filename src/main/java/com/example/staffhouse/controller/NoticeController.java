@@ -14,7 +14,7 @@ import java.util.List;
 public class NoticeController {
 
     @Autowired
-    NoticeService noticeService;
+    private NoticeService noticeService;
 
     @RequestMapping("/listNotice")
     public List<Notice> listNotice() {
