@@ -12,7 +12,7 @@ import java.util.List;
 public class NoticeServiceImpl implements NoticeService {
 
     @Autowired
-    NoticeDao noticeDao;
+    private NoticeDao noticeDao;
 
     @Override
     public List<Notice> listNotice() {

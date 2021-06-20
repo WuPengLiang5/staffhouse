@@ -12,7 +12,7 @@ import java.util.List;
 public class DepartmentServiceImpl implements DepartmentService {
 
     @Autowired
-    DepartmentDao departmentDao;
+    private DepartmentDao departmentDao;
 
     @Override
     public List<Department> listDepartment() {
