@@ -1,10 +1,14 @@
 package com.example.staffhouse.dao;
 
 import com.example.staffhouse.entity.EmployeeInf;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Mapper
+@Component(value="EmployeeInfDao")
 public interface EmployeeInfDao {
     int deleteByPrimaryKey(Integer id);
 

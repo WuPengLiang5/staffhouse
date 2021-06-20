@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.staffhouse.dao.DepartmentDao" >
+    <!--    <resultMap id="BaseResultMap" type="com.example.staffhouse.entity.Department" >-->
+    <!--        <id column="id" property="id" jdbcType="INTEGER" />-->
+    <!--        <result column="user_id" property="userId" jdbcType="INTEGER" />-->
+    <!--        <result column="create_date" property="createDate" jdbcType="VARCHAR" />-->
+    <!--        <result column="content" property="content" jdbcType="VARCHAR" />-->
+    <!--        <result column="title" property="title" jdbcType="VARCHAR" />-->
+    <!--    </resultMap>-->
+    <!--    <sql id="Base_Column">-->
+    <!--         id,user_id,create_date,content,title-->
+    <!--    </sql>-->
+
+    <select id="listDepartment" resultType="com.example.staffhouse.entity.Department">
+        select * from dept_inf
+    </select>
+
+    <select id="getDepartmentById" resultType="com.example.staffhouse.entity.Department" parameterType="java.lang.Integer">
+        select * from dept_inf where id = #{id}
+    </select>
+
+    <insert id="saveDepartment"  parameterType="com.example.staffhouse.entity.Department">
+        insert into dept_inf(id,name,remark)
+        values ( #{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR})
+    </insert>
+
+    <select id="deleteDepartment" parameterType="java.lang.Integer" >
+        delete from dept_inf where id = #{id}
+    </select>
+
+    <select id="updateDepartment"    parameterType="com.example.staffhouse.entity.Department">
+        update dept_inf set name = #{name,jdbcType=VARCHAR},
+        remark = #{remark,jdbcType=VARCHAR} where id= #{id,jdbcType=INTEGER}
+    </select>
+
+    <select id="listDepartmentByUserId" resultType="com.example.staffhouse.entity.Department" >
+        select * from dept_inf order by id DESC
+    </select>
+
+</mapper>
