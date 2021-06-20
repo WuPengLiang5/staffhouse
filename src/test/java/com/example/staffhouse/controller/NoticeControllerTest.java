@@ -41,6 +41,9 @@ public class NoticeControllerTest {
         session = new MockHttpSession();
     }
 
+    /**
+     * 公告数据列表
+     */
     @Test
     public void listNotice(){
         System.out.println("listNotice test start....");
@@ -56,6 +59,9 @@ public class NoticeControllerTest {
         }
     }
 
+    /**
+     * 根据创建日期获取公告
+     */
     @Test
     public void listNoticeByCreateDate(){
         System.out.println("listNoticeByCreateDate test start....");
@@ -70,6 +76,9 @@ public class NoticeControllerTest {
         }
     }
 
+    /**
+     * 根据员工获取列表
+     */
     @Test
     public void listNoticeUserId(){
 
@@ -78,6 +87,67 @@ public class NoticeControllerTest {
             MvcResult mvcResult = mockMvc.perform(
                     MockMvcRequestBuilders.get("/notice/listNoticeByUserId")
                             .accept("application/json;charset=utf-8"))
+                    .andExpect(MockMvcResultMatchers.status().is(200))
+                    .andDo(MockMvcResultHandlers.print()).andReturn();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 公告保存
+     */
+    @Test
+    public void saveNotice(){
+        System.out.println("listNoticeByCreateDate test start....");
+        try{
+            MvcResult mvcResult = mockMvc.perform(
+                    MockMvcRequestBuilders.get("/notice/saveNotice")
+                            .accept("application/json;charset=utf-8")
+                            .param("id","1111")
+                            .param("userId","1")
+                            .param("title","HelloWorld")
+                            .param("content","lalalalalala.")
+                            .param("createDate","2021/06/20"))
+                    .andExpect(MockMvcResultMatchers.status().is(200))
+                    .andDo(MockMvcResultHandlers.print()).andReturn();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 删除公告
+     */
+    @Test
+    public void deleteNotice(){
+        System.out.println("listNoticeByCreateDate test start....");
+        try{
+            MvcResult mvcResult = mockMvc.perform(
+                    MockMvcRequestBuilders.get("/notice/deleteNotice")
+                            .accept("application/json;charset=utf-8")
+                            .param("id","1111"))
+                    .andExpect(MockMvcResultMatchers.status().is(200))
+                    .andDo(MockMvcResultHandlers.print()).andReturn();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * 修改公告
+     */
+    @Test
+    public void updateNotice(){
+        System.out.println("listNoticeByCreateDate test start....");
+        try{
+            MvcResult mvcResult = mockMvc.perform(
+                    MockMvcRequestBuilders.get("/notice/updateNotice")
+                            .accept("application/json;charset=utf-8")
+                            .param("id","1111")
+                            .param("title","HelloWorld1")
+                            .param("content","lalalalalalahohoh.")
+                            .param("createDate","2021/06/20.1"))
                     .andExpect(MockMvcResultMatchers.status().is(200))
                     .andDo(MockMvcResultHandlers.print()).andReturn();
         }catch (Exception e){
