@@ -14,11 +14,13 @@ public interface UserDao {
 
     List<UserInfo> listUserInfoByUserStatus(int status);
 
-    UserInfo getUserInfoByUserName(String userName);
+    List<UserInfo> getUserInfoByUserName(String userName);
 
     int updateUserInfoById(UserInfo userInfo);
 
     int saveUserInfo(UserInfo userInfo);
+
+    int deleteUserById(int id);
 
     UserInfo getUserInfoByLoginName(@Param("loginName")String loginName);
 
@@ -28,6 +30,8 @@ public interface UserDao {
      * @return
      */
     UserInfo getUserInfoById(Integer userId);
+
+    int updateFaceUserInfo(UserInfo userInfo);
 
     void updateUserPassword(UserInfo userInfo);
 }
