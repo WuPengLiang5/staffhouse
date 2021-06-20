@@ -19,10 +19,7 @@ public class JobServiceImpl implements JobService {
         if(page==0||limit==0||page<0||limit<0){
             return null;
         }
-        page = page - 1;
-        if (page > 1) {
-            page = (page - 1) * limit;
-        }
+        page = (page - 1) * limit;
         List<JobInf> jobs = jobInfDao.getAllJobsByLike(jobName, page, limit);
         Number total = jobInfDao.countAllJobsByLike(jobName);
         return new PageObject<>(total.longValue(),jobs);

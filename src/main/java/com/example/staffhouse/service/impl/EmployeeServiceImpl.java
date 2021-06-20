@@ -21,10 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (page == 0 || limit == 0 || page < 0 || limit < 0) {
             return null;
         }
-        page = page - 1;
-        if (page > 1) {
-            page = (page - 1) * limit;
-        }
+        page = (page - 1) * limit;
         List<EmployeeInf> employeeList = employeeInfDao.getEmployeeByLike(deptId, jobId, sex, name, phone, page, limit);
         Number total = employeeInfDao.countEmployeeByLike(deptId, jobId, sex, name, phone);
         return new PageObject<>(total.longValue(),employeeList);
