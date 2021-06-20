@@ -44,4 +44,10 @@ public class JobServiceImpl implements JobService {
     public Integer deleteJob(Integer id) {
         return jobInfDao.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public Integer deleteJobs(String ids) {
+        String[] eidList= ids.split(",");
+        return jobInfDao.deleteJobs(eidList);
+    }
 }

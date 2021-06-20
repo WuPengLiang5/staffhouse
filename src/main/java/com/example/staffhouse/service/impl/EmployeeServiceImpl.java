@@ -44,4 +44,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Integer deleteEmployee(Integer id) {
         return employeeInfDao.deleteByPrimaryKey(id);
     }
+
+    @Override
+    public Integer deleteEmployees(String ids) {
+        String[] eidList= ids.split(",");
+
+        return employeeInfDao.deleteEmployees(eidList);
+    }
 }

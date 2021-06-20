@@ -27,4 +27,6 @@ public interface JobInfDao {
     Number countAllJobsByLike(@Param("jobName") String jobName);
 
     List<JobInf> selectAll();
+
+    Integer deleteJobs(@Param("ids") String[] ids);
 }

@@ -53,14 +53,8 @@ public class JobController {
     }
 
     @DeleteMapping("/deleteJobs")
-    public SysResult deleteJobs(Integer[] ids){
-        Integer key = 0;
-        for(int i =0;i<ids.length;i++){
-            key+=jobService.deleteJob(ids[i]);
-        }
-        if(key==0){
-            return SysResult.fail("删除失败");
-        }
+    public SysResult deleteJobs(String ids){
+        Integer key = jobService.deleteJobs(ids);
         return SysResult.success("删除了"+key+"条数据",null);
     }
 }
