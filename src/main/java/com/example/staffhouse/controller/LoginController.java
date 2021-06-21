@@ -49,12 +49,12 @@ public class LoginController {
 
     /**
      * 人脸登录
-     * @param base
+     * @param map
      * @return
      */
     @RequestMapping("/faceLogin")
-    public UserLoginDTO faceLogin(@RequestParam String base){
-        System.out.println(base);
+    public UserLoginDTO faceLogin(@RequestBody Map<String, String> map){
+        String base = map.get("base");
         UserInfo loginUser = userService.faceLogin(base);
         return new UserLoginDTO(loginUser.getId(), loginUser.getLoginName(), loginUser.getStatus());
     }

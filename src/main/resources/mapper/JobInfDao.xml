@@ -37,7 +37,13 @@
     delete from job_inf
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.staffhouse.entity.JobInf" useGeneratedKeys="true">
+    <delete id="deleteJobs">
+      delete from job_inf where id in
+      <foreach collection="ids" open="(" close=")" item="ids" separator="," >
+        #{ids}
+      </foreach>
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.staffhouse.entity.JobInf" useGeneratedKeys="true">
     insert into job_inf (`name`, remark)
     values (#{name,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
   </insert>

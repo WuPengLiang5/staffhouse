@@ -15,4 +15,6 @@ public interface JobService {
     List<JobInf> getAllJobs();
 
     Integer deleteJob(Integer id);
+
+    Integer deleteJobs(String ids);
 }

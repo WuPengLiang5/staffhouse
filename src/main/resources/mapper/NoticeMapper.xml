@@ -40,7 +40,7 @@
     </select>
 
     <select id="listNoticeByUserId" resultType="com.example.staffhouse.entity.Notice" >
-        select * from notice_inf order by id DESC
+        select * from notice_inf order by user_id DESC
     </select>
 
 </mapper>
