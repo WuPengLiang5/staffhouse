@@ -57,14 +57,8 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/deleteEmployees")
-    public SysResult deleteEmployees(Integer[] ids){
-        Integer key = 0;
-        for(int i =0;i<ids.length;i++){
-            key+=employeeService.deleteEmployee(ids[i]);
-        }
-        if(key==0){
-            return SysResult.fail("员工删除失败");
-        }
+    public SysResult deleteEmployees(String ids){
+        int key = employeeService.deleteEmployees(ids);
         return SysResult.success("删除了"+key+"条数据",null);
     }
 }

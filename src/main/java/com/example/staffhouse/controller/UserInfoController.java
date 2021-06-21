@@ -62,6 +62,10 @@ public class UserInfoController {
         userService.deleteUserById(id);
     }
 
+    /**
+     * 添加用户
+     * @param userInfo
+     */
     @RequestMapping("/saveUserInfo")
     public void saveUserInfo(@RequestBody UserInfo userInfo){
         userService.saveUserInfo(userInfo);

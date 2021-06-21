@@ -3,6 +3,7 @@ package com.example.staffhouse.controller;
 import com.example.staffhouse.entity.Department;
 import com.example.staffhouse.service.DepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/saveDepartment")
-    public void saveDepartment(Department department){
+    public void saveDepartment(@RequestBody Department department){
         departmentService.saveDepartment(department);
     }
 
@@ -31,7 +32,7 @@ public class DepartmentController {
     }
 
     @RequestMapping("/updateDepartment")
-    public void updateDepartment(Department department){
+    public void updateDepartment(@RequestBody Department department){
         departmentService.updateDepartment(department);
     }
 
