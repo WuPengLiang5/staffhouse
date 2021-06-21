@@ -6,9 +6,12 @@ import com.example.staffhouse.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Array;
 import java.security.Provider;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -89,4 +92,11 @@ public class NoticeController {
         String content=map.get("content");
         return noticeService.searchNotice(title,content);
     }
+
+    @RequestMapping("/deleteNoticeByQuery")
+    public void deleteNoticeByQuery(@RequestBody Map<String,List<Integer>> map) {
+        Integer[] list = map.get("ids").toArray(new Integer[0]);
+        noticeService.deleteNoticeByQuery(list);
+    }
+
 }

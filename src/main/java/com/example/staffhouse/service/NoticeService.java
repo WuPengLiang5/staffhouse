@@ -22,4 +22,6 @@ public interface NoticeService {
     public Notice getNoticeById(Integer id);
 
     List<NoticeDTO> searchNotice(String title,String content);
+
+    void deleteNoticeByQuery(Integer[] ids);
 }

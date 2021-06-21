@@ -83,4 +83,10 @@ public class NoticeServiceImpl implements NoticeService {
         return noticeDTOS;
     }
 
+    @Override
+    public void deleteNoticeByQuery(Integer[] ids) {
+        noticeDao.deleteNoticeByQuery(ids);
+    }
+
+
 }

@@ -28,4 +28,6 @@ public interface NoticeDao {
 
     List<Notice> searchNotice(@Param("title") String title,@Param("content") String content);
 
+    void deleteNoticeByQuery(Integer[] ids);
+
 }
