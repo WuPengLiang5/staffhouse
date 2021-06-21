@@ -37,7 +37,7 @@ public interface UserService {
      * 增加用户
      * @param userInfo
      */
-    public void saveUserInfo(UserInfo userInfo);
+    public int saveUserInfo(UserInfo userInfo);
 
     /**
      * 删除用户

@@ -64,13 +64,19 @@ public class UserServiceImpl implements UserService {
      * @param userInfo
      */
     @Override
-    public void saveUserInfo(UserInfo userInfo) {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //将时间转化为类似 2020-02-13 16:01:30 格式的字符串
-        String createDate=sdf.format(date);
-        userInfo.setCreateDate(createDate);
-        userDao.saveUserInfo(userInfo);
+    public int saveUserInfo(UserInfo userInfo) {
+        UserInfo oldUser =  userDao.getUserInfoByLoginName(userInfo.getLoginName());
+        int message = -1;
+        if(oldUser ==null){
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //将时间转化为类似 2020-02-13 16:01:30 格式的字符串
+            String createDate=sdf.format(date);
+            userInfo.setCreateDate(createDate);
+            userDao.saveUserInfo(userInfo);
+            message = 1;
+        }
+       return message;
     }
 
     /**
