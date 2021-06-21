@@ -65,9 +65,9 @@ public class DepartmentControllerTest {
             MvcResult mvcResult = mockMvc.perform(
                     MockMvcRequestBuilders.get("/department/deleteDepartment")
                             .accept("application/json;charset=utf-8")
-            .param("departmentId","126"))
-                    .andExpect(MockMvcResultMatchers.status().is(200))
-                    .andDo(MockMvcResultHandlers.print()).andReturn();
+                            .param("departmentId","126"))
+                            .andExpect(MockMvcResultMatchers.status().is(200))
+                            .andDo(MockMvcResultHandlers.print()).andReturn();
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -76,22 +76,22 @@ public class DepartmentControllerTest {
     /**
      * 保存部门
      */
-    @Test
-    public void save(){
-        System.out.println("save......");
-        try{
-            MvcResult mvcResult = mockMvc.perform(
-                    MockMvcRequestBuilders.get("/department/saveDepartment")
-                            .accept("application/json;charset=utf-8")
-                            .param("id","126")
-                            .param("name","技术部")
-                            .param("remark","技术部"))
-                    .andExpect(MockMvcResultMatchers.status().is(200))
-                    .andDo(MockMvcResultHandlers.print()).andReturn();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
+//    @Test
+//    public void save(){
+//        System.out.println("save......");
+//        try{
+//            MvcResult mvcResult = mockMvc.perform(
+//                    MockMvcRequestBuilders.get("/department/saveDepartment")
+//                            .accept("application/json;charset=utf-8")
+//                            .param("id","126")
+//                            .param("name","技术部")
+//                            .param("remark","技术部"))
+//                    .andExpect(MockMvcResultMatchers.status().is(200))
+//                    .andDo(MockMvcResultHandlers.print()).andReturn();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
 
     /**
      * 修改部门
@@ -103,7 +103,7 @@ public class DepartmentControllerTest {
             MvcResult mvcResult = mockMvc.perform(
                     MockMvcRequestBuilders.get("/department/updateDepartment")
                             .accept("application/json;charset=utf-8")
-                            .param("id","126")
+                            .param("id","2")
                             .param("name","财务部")
                             .param("remark","财务部"))
                     .andExpect(MockMvcResultMatchers.status().is(200))
