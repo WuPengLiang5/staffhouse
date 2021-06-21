@@ -1,11 +1,15 @@
 package com.example.staffhouse.controller;
 
 import com.example.staffhouse.entity.Department;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -76,38 +80,46 @@ public class DepartmentControllerTest {
     /**
      * 保存部门
      */
-//    @Test
-//    public void save(){
-//        System.out.println("save......");
-//        try{
-//            MvcResult mvcResult = mockMvc.perform(
-//                    MockMvcRequestBuilders.get("/department/saveDepartment")
-//                            .accept("application/json;charset=utf-8")
-//                            .param("id","126")
-//                            .param("name","技术部")
-//                            .param("remark","技术部"))
-//                    .andExpect(MockMvcResultMatchers.status().is(200))
-//                    .andDo(MockMvcResultHandlers.print()).andReturn();
-//        }catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
+    @Test
+    public void save() throws JsonProcessingException {
+        System.out.println("save......");
+        Department department = new Department(null,"哈哈部","哈哈部");
+        //设置值
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson=ow.writeValueAsString(department);
+        try{
+            MvcResult mvcResult = mockMvc.perform(
+                    MockMvcRequestBuilders.post("/department/saveDepartment")
+                            .contentType(MediaType.APPLICATION_JSON).content(requestJson))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andDo(MockMvcResultHandlers.print())
+                    .andReturn();
+            System.out.println(mvcResult);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 修改部门
      */
     @Test
-    public void update(){
+    public void update() throws JsonProcessingException {
         System.out.println("update......");
+        Department department = new Department(2,"财务部","财务部");
+        //设置值
+        ObjectMapper mapper = new ObjectMapper();
+        ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+        String requestJson=ow.writeValueAsString(department);
         try{
             MvcResult mvcResult = mockMvc.perform(
-                    MockMvcRequestBuilders.get("/department/updateDepartment")
-                            .accept("application/json;charset=utf-8")
-                            .param("id","2")
-                            .param("name","财务部")
-                            .param("remark","财务部"))
-                    .andExpect(MockMvcResultMatchers.status().is(200))
-                    .andDo(MockMvcResultHandlers.print()).andReturn();
+                    MockMvcRequestBuilders.post("/department/updateDepartment")
+                            .contentType(MediaType.APPLICATION_JSON).content(requestJson))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andDo(MockMvcResultHandlers.print())
+                    .andReturn();
+            System.out.println(mvcResult);
         }catch (Exception e){
             e.printStackTrace();
         }
