@@ -1,12 +1,13 @@
 package com.example.staffhouse.service;
 
 import com.example.staffhouse.entity.Notice;
+import com.example.staffhouse.entity.NoticeDTO;
 
 import java.util.List;
 
 public interface NoticeService {
 
-    public List<Notice> listNotice();
+    public List<NoticeDTO> listNotice();
 
     public List<Notice> listNoticeByCreatDate();
 
@@ -19,4 +20,6 @@ public interface NoticeService {
     public void updateNotice(Notice notice);
 
     public Notice getNoticeById(Integer id);
+
+    List<NoticeDTO> searchNotice(String title,String content);
 }

@@ -34,13 +34,23 @@
         delete from notice_inf where id = #{id}
     </select>
 
-    <select id="updateNotice"    parameterType="com.example.staffhouse.entity.Notice">
-        update notice_inf set title = #{title,jdbcType=VARCHAR},create_date=#{createDate,jdbcType=VARCHAR },
-        content = #{content,jdbcType=VARCHAR} where id= #{id,jdbcType=INTEGER}
+    <select id="updateNotice" parameterType="com.example.staffhouse.entity.Notice">
+        update notice_inf set title = #{title,jdbcType=VARCHAR},content = #{content,jdbcType=VARCHAR}
+        where id= #{id,jdbcType=INTEGER}
     </select>
 
     <select id="listNoticeByUserId" resultType="com.example.staffhouse.entity.Notice" >
         select * from notice_inf order by user_id DESC
     </select>
 
+    <select id="searchNotice" parameterType="java.lang.String" resultType="com.example.staffhouse.entity.Notice" >
+        select * from notice_inf
+        where
+         <if test="title != null">
+             title like '%${title}%'
+         </if>
+        <if test="content != null">
+            and content like '%${content}%'
+        </if>
+    </select>
 </mapper>

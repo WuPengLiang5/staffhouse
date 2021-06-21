@@ -1,6 +1,7 @@
 package com.example.staffhouse.dao;
 
 import com.example.staffhouse.entity.Notice;
+import com.example.staffhouse.entity.NoticeDTO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -24,5 +25,7 @@ public interface NoticeDao {
     void updateNotice(Notice notice);
 
     Notice getNoticeById(Integer id);
+
+    List<Notice> searchNotice(@Param("title") String title,@Param("content") String content);
 
 }
