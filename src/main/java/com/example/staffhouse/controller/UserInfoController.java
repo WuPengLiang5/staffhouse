@@ -67,7 +67,7 @@ public class UserInfoController {
      * @param userInfo
      */
     @RequestMapping("/saveUserInfo")
-    public void saveUserInfo(@RequestBody UserInfo userInfo){
-        userService.saveUserInfo(userInfo);
+    public int saveUserInfo(@RequestBody UserInfo userInfo){
+        return userService.saveUserInfo(userInfo);
     }
 }
