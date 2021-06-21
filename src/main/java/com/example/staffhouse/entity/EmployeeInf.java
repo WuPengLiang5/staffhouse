@@ -1,13 +1,20 @@
 package com.example.staffhouse.entity;
 
 import java.io.Serializable;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * employee_inf
  * @author 
  */
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class EmployeeInf implements Serializable {
     private Integer id;
 

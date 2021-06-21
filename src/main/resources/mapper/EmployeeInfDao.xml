@@ -78,7 +78,7 @@
   </delete>
   <delete id="deleteEmployees">
     delete from employee_inf where id in
-    <foreach collection="array" open="(" close=")" item="ids" separator="," >
+    <foreach collection="ids" open="(" close=")" item="ids" separator="," >
       #{ids}
     </foreach>
   </delete>
