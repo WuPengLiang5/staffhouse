@@ -57,6 +57,7 @@ public class LoginController {
      * @param map
      * @return
      */
+    @PassToken
     @RequestMapping("/faceLogin")
     public UserLoginDTO faceLogin(@RequestBody Map<String, String> map){
         String base = map.get("base");
