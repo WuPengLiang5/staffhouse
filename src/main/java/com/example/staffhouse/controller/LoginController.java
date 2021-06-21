@@ -61,7 +61,12 @@ public class LoginController {
     public UserLoginDTO faceLogin(@RequestBody Map<String, String> map){
         String base = map.get("base");
         UserInfo loginUser = userService.faceLogin(base);
-        return new UserLoginDTO(loginUser.getId(), loginUser.getLoginName(),loginUser.getUserName(), loginUser.getStatus());
+        UserLoginDTO userLoginDTO = new UserLoginDTO(loginUser.getId(), loginUser.getLoginName(),loginUser.getUserName(), loginUser.getStatus());
+
+        // 添加Token
+        String token= JwtUtils.createToken(userLoginDTO);
+        userLoginDTO.setToken(token);
+        return userLoginDTO;
     }
 
     /**
