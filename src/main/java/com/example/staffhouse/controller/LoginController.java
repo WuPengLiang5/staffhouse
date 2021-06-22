@@ -29,27 +29,13 @@ public class LoginController {
 
     /**
      * 登录
-     *
      * @param userInfo
      * @return
      */
     @PassToken
     @RequestMapping("/doLogin")
     public UserLoginDTO login(@RequestBody UserInfo userInfo) {
-        UserInfo user = userService.getUserByLoginName(userInfo.getLoginName());
-        String rawPassword = userInfo.getPassword();
-        String rightPassword = user.getPassword();
-        if (rawPassword.equalsIgnoreCase(rightPassword)) {
-            UserLoginDTO userLoginDTO = new UserLoginDTO(user.getId(), user.getLoginName(), user.getUserName(),user.getStatus());
-            String token= JwtUtils.createToken(userLoginDTO);
-            userLoginDTO.setToken(token);
-            return userLoginDTO;
-        } else {
-            UserLoginDTO userLoginDTO = new UserLoginDTO();
-            userLoginDTO.setStatus(-1);
-            userLoginDTO.setLoginName("notfound");
-            return userLoginDTO;
-        }
+        return userService.login(userInfo);
     }
 
     /**

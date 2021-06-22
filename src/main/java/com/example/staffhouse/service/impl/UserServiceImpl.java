@@ -1,11 +1,13 @@
 package com.example.staffhouse.service.impl;
 
+import com.example.staffhouse.entity.UserLoginDTO;
 import com.example.staffhouse.util.FileUtil;
 import com.example.staffhouse.dao.UserDao;
 import com.example.staffhouse.entity.PathDTO;
 import com.example.staffhouse.entity.UserInfo;
 import com.example.staffhouse.service.UserService;
 import com.example.staffhouse.util.FaceClient;
+import com.example.staffhouse.util.JwtUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -190,6 +192,35 @@ public class UserServiceImpl implements UserService {
         loginUser.setFaceUrl(pathDTO.getUrlPath());
         userDao.updateFaceUserInfo(loginUser);
 
+    }
+
+    /**
+     * 登录
+     * @param userInfo
+     * @return
+     */
+    public UserLoginDTO login(UserInfo userInfo){
+        UserInfo user = getUserByLoginName(userInfo.getLoginName());
+        if (user==null){
+            UserLoginDTO userLoginDTO = new UserLoginDTO();
+            userLoginDTO.setStatus(-1);
+            userLoginDTO.setLoginName("notfound");
+            return userLoginDTO;
+        }else{
+            String rawPassword = userInfo.getPassword();
+            String rightPassword = user.getPassword();
+            if (rawPassword.equalsIgnoreCase(rightPassword)) {
+                UserLoginDTO userLoginDTO = new UserLoginDTO(user.getId(), user.getLoginName(), user.getUserName(),user.getStatus());
+                String token= JwtUtils.createToken(userLoginDTO);
+                userLoginDTO.setToken(token);
+                return userLoginDTO;
+            } else {
+                UserLoginDTO userLoginDTO = new UserLoginDTO();
+                userLoginDTO.setStatus(-1);
+                userLoginDTO.setLoginName("notPassword");
+                return userLoginDTO;
+            }
+        }
     }
 
     /**
