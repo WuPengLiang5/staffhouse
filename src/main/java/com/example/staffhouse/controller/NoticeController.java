@@ -90,7 +90,8 @@ public class NoticeController {
     public List<NoticeDTO> searchiNotice(@RequestBody Map<String,String> map) {
         String title=map.get("title");
         String content=map.get("content");
-        return noticeService.searchNotice(title,content);
+        List<NoticeDTO> list = noticeService.searchNotice(title,content);
+        return list;
     }
 
     @RequestMapping("/deleteNoticeByQuery")

@@ -2,12 +2,15 @@ package com.example.staffhouse.dao;
 
 
 import com.example.staffhouse.entity.Notice;
+import com.example.staffhouse.entity.NoticeDTO;
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest
@@ -68,5 +71,24 @@ public class NoticeDaoTest {
     public void deleteNotice(){
         System.out.println("deleteNotice test start....");
         noticeDao.deleteNotice(9999);
+    }
+
+    @Test
+    public void searchNotice(){
+        System.out.println("searchNotice test start....");
+        List<Notice> list = noticeDao.searchNotice("标","");
+        for(Integer i=0;i<list.size();i++){
+            Notice notice = list.get(i);
+            System.out.println(notice.getTitle());
+            System.out.println(notice.getContent());
+        }
+    }
+
+    @Test
+    public void deleteNoticeByQuery(){
+        Notice notice = new Notice(9999,1,"标题","java lala dai","2021-05-09");
+        noticeDao.saveNotice(notice);
+        Integer [] ids={999};
+        noticeDao.deleteNoticeByQuery(ids);
     }
 }

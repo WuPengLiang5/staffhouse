@@ -2,11 +2,15 @@ package com.example.staffhouse.controller;
 
 
 import com.example.staffhouse.entity.Notice;
+import com.example.staffhouse.entity.UserInfo;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockHttpSession;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -18,6 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+import com.example.staffhouse.controller.LoginControllerTest;
 
 import java.util.List;
 
@@ -33,6 +38,29 @@ public class NoticeControllerTest {
     public MockMvc mockMvc;
 
     public MockHttpSession session;
+
+    public void login(){
+        try {
+            UserInfo userInfo=new UserInfo();
+            userInfo.setLoginName("123");
+            userInfo.setPassword("12");
+            //设置值
+            ObjectMapper mapper = new ObjectMapper();
+            ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();
+            String requestJson=ow.writeValueAsString(userInfo);
+            MvcResult mvcResult = mockMvc.perform(
+                    MockMvcRequestBuilders.post("/login/doLogin")
+                            .contentType(MediaType.APPLICATION_JSON).content(requestJson))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andDo(MockMvcResultHandlers.print())
+                    .andReturn();
+            System.out.println(mvcResult);
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        System.out.println("-------------------------------------------------------------------");
+    }
 
     @Before
     public void init(){
@@ -148,6 +176,39 @@ public class NoticeControllerTest {
                             .param("title","HelloWorld1")
                             .param("content","lalalalalalahohoh.")
                             .param("createDate","2021/06/20.1"))
+                    .andExpect(MockMvcResultMatchers.status().is(200))
+                    .andDo(MockMvcResultHandlers.print()).andReturn();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void deleteNoticeByQuery(){
+        login();
+        saveNotice();
+        Integer [] ids = {1111};
+        try{
+            MvcResult mvcResult = mockMvc.perform(
+                    MockMvcRequestBuilders.get("/notice/deleteNoticeByQuery")
+                            .accept("application/json;charset=utf-8")
+                            .param("ids", String.valueOf(ids)))
+                    .andExpect(MockMvcResultMatchers.status().is(200))
+                    .andDo(MockMvcResultHandlers.print()).andReturn();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void searchNotice(){
+        saveNotice();
+        try{
+            MvcResult mvcResult = mockMvc.perform(
+                    MockMvcRequestBuilders.get("/notice/searchNotice")
+                            .accept("application/json;charset=utf-8")
+                            .param("title","HelloWorld1")
+                            .param("content","lalalalalalahohoh."))
                     .andExpect(MockMvcResultMatchers.status().is(200))
                     .andDo(MockMvcResultHandlers.print()).andReturn();
         }catch (Exception e){
