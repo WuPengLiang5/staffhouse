@@ -22,9 +22,9 @@ public interface EmployeeInfDao {
 
     int updateByPrimaryKey(EmployeeInf record);
 
-    List<EmployeeInf> getEmployeeByLike(@Param("deptId") Integer deptId, @Param("jobId") Integer jobId, @Param("sex") Integer sex, @Param("name") String name, @Param("phone") String phone, @Param("page") Integer page, @Param("limit") Integer limit);
+    List<EmployeeInf> getEmployeeByLike(@Param("deptId") Integer deptId, @Param("jobId") Integer jobId, @Param("sex") Integer sex, @Param("name") String name, @Param("phone") String phone, @Param("page") Integer page, @Param("limit") Integer limit,@Param("cardId")String cardId);
 
-    Number countEmployeeByLike(Integer deptId, Integer jobId, Integer sex, String name, String phone);
+    Number countEmployeeByLike(Integer deptId, Integer jobId, Integer sex, String name, String phone,String cardId);
 
     Integer deleteEmployees(@Param("ids") String[] ids);
 }

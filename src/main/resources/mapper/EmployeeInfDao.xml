@@ -37,19 +37,22 @@
       select * from employee_inf
       where 1=1
       <if test="deptId!=null and deptId!=''">
-        and dep_id=#{deptId}
+        and dep_id=#{deptId,jdbcType=INTEGER}
       </if>
       <if test="jobId!=null and jobId!=''">
-        and job_id=#{jobId}
+        and job_id=#{jobId,jdbcType=INTEGER}
       </if>
       <if test="name!=null and name!=''">
         and `name` like concat('%',#{name},'%')
       </if>
-      <if test="sex!=null and sex!=''">
-        and sex=#{sex}
+      <if test="sex!=null and sex!='' or sex=='0'.toString()">
+        and sex=#{sex,jdbcType=INTEGER}
       </if>
       <if test="phone!=null and phone!=''">
         and phone=#{phone}
+      </if>
+      <if test="cardId!=null and cardId!=''">
+        and card_id=#{cardId}
       </if>
       limit #{page},#{limit}
     </select>
@@ -57,19 +60,22 @@
     select count(1) from employee_inf
     where 1=1
     <if test="deptId!=null and deptId!=''">
-      and dep_id=#{deptId}
+      and dep_id=#{deptId,jdbcType=INTEGER}
     </if>
     <if test="jobId!=null and jobId!=''">
-      and job_id=#{jobId}
+      and job_id=#{jobId,jdbcType=INTEGER}
     </if>
     <if test="name!=null and name!=''">
       and `name` like concat('%',#{name},'%')
     </if>
-    <if test="sex!=null and sex!=''">
-      and sex=#{sex}
+    <if test="sex!=null and sex!=''or sex=='0'.toString()">
+      and sex=#{sex,jdbcType=INTEGER}
     </if>
     <if test="phone!=null and phone!=''">
       and phone=#{phone}
+    </if>
+    <if test="cardId!=null and cardId!=''">
+      and card_id=#{cardId}
     </if>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

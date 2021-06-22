@@ -17,13 +17,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeInfDao employeeInfDao;
     @Override
-    public PageObject<EmployeeInf> getEmployeeByLike(Integer deptId, Integer jobId, Integer sex, String name, String phone, Integer page, Integer limit) {
+    public PageObject<EmployeeInf> getEmployeeByLike(Integer deptId, Integer jobId, Integer sex, String name, String phone, Integer page, Integer limit,String cardId) {
         if (page == 0 || limit == 0 || page < 0 || limit < 0) {
             return null;
         }
         page = (page - 1) * limit;
-        List<EmployeeInf> employeeList = employeeInfDao.getEmployeeByLike(deptId, jobId, sex, name, phone, page, limit);
-        Number total = employeeInfDao.countEmployeeByLike(deptId, jobId, sex, name, phone);
+        List<EmployeeInf> employeeList = employeeInfDao.getEmployeeByLike(deptId, jobId, sex, name, phone, page, limit,cardId);
+        Number total = employeeInfDao.countEmployeeByLike(deptId, jobId, sex, name, phone,cardId);
         return new PageObject<>(total.longValue(),employeeList);
     }
 
