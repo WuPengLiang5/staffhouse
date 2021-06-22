@@ -28,6 +28,12 @@ public class DepartmentDaoTest {
     }
 
     @Test
+    public void listDepartmentByName(){
+        System.out.println("listDepartmentByName test start....");
+        departmentDao.listDepartmentByName("123");
+    }
+
+    @Test
     public void saveDepartment(){
         System.out.println("saveDepartment test start....");
         Department department = new Department(126,"静静静", "笑哈哈");

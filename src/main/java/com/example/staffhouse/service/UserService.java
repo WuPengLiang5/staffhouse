@@ -2,6 +2,7 @@ package com.example.staffhouse.service;
 
 import com.example.staffhouse.entity.PathDTO;
 import com.example.staffhouse.entity.UserInfo;
+import com.example.staffhouse.entity.UserLoginDTO;
 
 import java.util.List;
 
@@ -82,6 +83,13 @@ public interface UserService {
      * @param loginUser
      */
     public void updateUserFace(PathDTO pathDTO, UserInfo loginUser);
+
+    /**
+     * 登录
+     * @param userInfo
+     * @return
+     */
+    public UserLoginDTO login(UserInfo userInfo);
 
     /**
      * 更新密码

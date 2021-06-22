@@ -20,6 +20,11 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
+    public List<Department> listDepartmentByName(String name) {
+        return departmentDao.listDepartmentByName(name);
+    }
+
+    @Override
     public void saveDepartment(Department department) {
         departmentDao.saveDepartment(department);
     }

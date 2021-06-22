@@ -21,6 +21,11 @@ public class DepartmentController {
         return departmentService.listDepartment();
     }
 
+    @RequestMapping("/listDepartmentByName")
+    public List<Department> listDepartmentByName(String name){
+        return departmentService.listDepartmentByName(name);
+    }
+
     @RequestMapping("/saveDepartment")
     public void saveDepartment(@RequestBody Department department){
         departmentService.saveDepartment(department);
@@ -40,4 +45,6 @@ public class DepartmentController {
     public Department getDepartmentById(Integer departmentId){
         return departmentService.getDepartmentById(departmentId);
     }
+
+
 }
