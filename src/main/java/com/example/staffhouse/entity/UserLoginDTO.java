@@ -6,14 +6,17 @@ package com.example.staffhouse.entity;
 public class UserLoginDTO {
     private Integer id;
     private String loginName;
+    private String userName;
     private Integer status;
+    private String token;
 
     public UserLoginDTO() {
     }
 
-    public UserLoginDTO(Integer id, String loginName, Integer status) {
+    public UserLoginDTO(Integer id, String loginName,String userName, Integer status) {
         this.id = id;
         this.loginName = loginName;
+        this.userName = userName;
         this.status = status;
     }
 
@@ -23,6 +26,14 @@ public class UserLoginDTO {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getLoginName() {
@@ -39,5 +50,13 @@ public class UserLoginDTO {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }

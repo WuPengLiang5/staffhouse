@@ -11,6 +11,8 @@ import java.util.List;
 public interface DepartmentDao {
     List<Department> listDepartment();
 
+    List<Department> listDepartmentByName(String name);
+
     void saveDepartment(Department department);
 
     void deleteDepartment(Integer departmentId);
