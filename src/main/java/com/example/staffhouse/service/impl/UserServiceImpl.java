@@ -199,6 +199,7 @@ public class UserServiceImpl implements UserService {
      * @param userInfo
      * @return
      */
+    @Override
     public UserLoginDTO login(UserInfo userInfo){
         UserInfo user = getUserByLoginName(userInfo.getLoginName());
         if (user==null){
