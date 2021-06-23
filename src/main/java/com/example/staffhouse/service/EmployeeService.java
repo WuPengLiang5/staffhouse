@@ -4,7 +4,7 @@ import com.example.staffhouse.Vo.PageObject;
 import com.example.staffhouse.entity.EmployeeInf;
 
 public interface EmployeeService {
-    PageObject<EmployeeInf> getEmployeeByLike(Integer deptId, Integer jobId, Integer sex, String name, String phone, Integer page, Integer limit);
+    PageObject<EmployeeInf> getEmployeeByLike(Integer deptId, Integer jobId, Integer sex, String name, String phone, Integer page, Integer limit,String cardId);
 
     Integer editEmployee(EmployeeInf employee);
 
