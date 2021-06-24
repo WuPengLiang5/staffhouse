@@ -11,6 +11,8 @@ public interface DepartmentService {
      */
     public List<Department> listDepartment();
 
+    public List<Department> listDepartmentByName(String name);
+
     public void saveDepartment(Department department);
 
     public void deleteDepartment(Integer departmentId);

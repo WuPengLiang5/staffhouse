@@ -1,13 +1,19 @@
 package com.example.staffhouse.controller;
 
 import com.example.staffhouse.entity.Notice;
+import com.example.staffhouse.entity.NoticeDTO;
 import com.example.staffhouse.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.lang.reflect.Array;
 import java.security.Provider;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/notice")
@@ -21,8 +27,7 @@ public class NoticeController {
      * @return
      */
     @RequestMapping("/listNotice")
-    public List<Notice> listNotice() {
-
+    public List<NoticeDTO> listNotice() {
         return noticeService.listNotice();
     }
 
@@ -49,7 +54,7 @@ public class NoticeController {
      * @param notice
      */
     @RequestMapping("/saveNotice")
-    public void saveNotice(Notice notice) {
+    public void saveNotice(@RequestBody Notice notice) {
         noticeService.saveNotice(notice);
     }
 
@@ -67,7 +72,7 @@ public class NoticeController {
      * @param notice
      */
     @RequestMapping("/updateNotice")
-    public void updateNotice(Notice notice) {
+    public void updateNotice(@RequestBody Notice notice) {
         noticeService.updateNotice(notice);
     }
 
@@ -80,4 +85,19 @@ public class NoticeController {
     public Notice getNoticeById(Integer id) {
         return noticeService.getNoticeById(id);
     }
+
+    @RequestMapping("/searchNotice")
+    public List<NoticeDTO> searchiNotice(@RequestBody Map<String,String> map) {
+        String title=map.get("title");
+        String content=map.get("content");
+        List<NoticeDTO> list = noticeService.searchNotice(title,content);
+        return list;
+    }
+
+    @RequestMapping("/deleteNoticeByQuery")
+    public void deleteNoticeByQuery(@RequestBody Map<String,List<Integer>> map) {
+        Integer[] list = map.get("ids").toArray(new Integer[0]);
+        noticeService.deleteNoticeByQuery(list);
+    }
+
 }

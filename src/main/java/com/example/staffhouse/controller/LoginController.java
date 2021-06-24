@@ -1,10 +1,12 @@
 package com.example.staffhouse.controller;
 
+import com.example.staffhouse.config.PassToken;
 import com.example.staffhouse.entity.PathDTO;
 import com.example.staffhouse.entity.UserInfo;
 import com.example.staffhouse.entity.Message;
 import com.example.staffhouse.entity.UserLoginDTO;
 import com.example.staffhouse.service.UserService;
+import com.example.staffhouse.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
@@ -27,24 +29,13 @@ public class LoginController {
 
     /**
      * 登录
-     *
      * @param userInfo
      * @return
      */
+    @PassToken
     @RequestMapping("/doLogin")
     public UserLoginDTO login(@RequestBody UserInfo userInfo) {
-        UserInfo user = userService.getUserByLoginName(userInfo.getLoginName());
-        String rawPassword = userInfo.getPassword();
-        String rightPassword = user.getPassword();
-        if (rawPassword.equalsIgnoreCase(rightPassword)) {
-            UserLoginDTO userLoginDTO = new UserLoginDTO(user.getId(), user.getLoginName(), user.getStatus());
-            return userLoginDTO;
-        } else {
-            UserLoginDTO userLoginDTO = new UserLoginDTO();
-            userLoginDTO.setStatus(-1);
-            userLoginDTO.setLoginName("notfound");
-            return userLoginDTO;
-        }
+        return userService.login(userInfo);
     }
 
     /**
@@ -52,11 +43,17 @@ public class LoginController {
      * @param map
      * @return
      */
+    @PassToken
     @RequestMapping("/faceLogin")
     public UserLoginDTO faceLogin(@RequestBody Map<String, String> map){
         String base = map.get("base");
         UserInfo loginUser = userService.faceLogin(base);
-        return new UserLoginDTO(loginUser.getId(), loginUser.getLoginName(), loginUser.getStatus());
+        UserLoginDTO userLoginDTO = new UserLoginDTO(loginUser.getId(), loginUser.getLoginName(),loginUser.getUserName(), loginUser.getStatus());
+
+        // 添加Token
+        String token= JwtUtils.createToken(userLoginDTO);
+        userLoginDTO.setToken(token);
+        return userLoginDTO;
     }
 
     /**

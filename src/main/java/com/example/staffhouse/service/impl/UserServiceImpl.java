@@ -1,11 +1,13 @@
 package com.example.staffhouse.service.impl;
 
+import com.example.staffhouse.entity.UserLoginDTO;
 import com.example.staffhouse.util.FileUtil;
 import com.example.staffhouse.dao.UserDao;
 import com.example.staffhouse.entity.PathDTO;
 import com.example.staffhouse.entity.UserInfo;
 import com.example.staffhouse.service.UserService;
 import com.example.staffhouse.util.FaceClient;
+import com.example.staffhouse.util.JwtUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,13 +66,19 @@ public class UserServiceImpl implements UserService {
      * @param userInfo
      */
     @Override
-    public void saveUserInfo(UserInfo userInfo) {
-        Date date = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        //将时间转化为类似 2020-02-13 16:01:30 格式的字符串
-        String createDate=sdf.format(date);
-        userInfo.setCreateDate(createDate);
-        userDao.saveUserInfo(userInfo);
+    public int saveUserInfo(UserInfo userInfo) {
+        UserInfo oldUser =  userDao.getUserInfoByLoginName(userInfo.getLoginName());
+        int message = -1;
+        if(oldUser ==null){
+            Date date = new Date();
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //将时间转化为类似 2020-02-13 16:01:30 格式的字符串
+            String createDate=sdf.format(date);
+            userInfo.setCreateDate(createDate);
+            userDao.saveUserInfo(userInfo);
+            message = 1;
+        }
+       return message;
     }
 
     /**
@@ -184,6 +192,36 @@ public class UserServiceImpl implements UserService {
         loginUser.setFaceUrl(pathDTO.getUrlPath());
         userDao.updateFaceUserInfo(loginUser);
 
+    }
+
+    /**
+     * 登录
+     * @param userInfo
+     * @return
+     */
+    @Override
+    public UserLoginDTO login(UserInfo userInfo){
+        UserInfo user = getUserByLoginName(userInfo.getLoginName());
+        if (user==null){
+            UserLoginDTO userLoginDTO = new UserLoginDTO();
+            userLoginDTO.setStatus(-1);
+            userLoginDTO.setLoginName("notfound");
+            return userLoginDTO;
+        }else{
+            String rawPassword = userInfo.getPassword();
+            String rightPassword = user.getPassword();
+            if (rawPassword.equalsIgnoreCase(rightPassword)) {
+                UserLoginDTO userLoginDTO = new UserLoginDTO(user.getId(), user.getLoginName(), user.getUserName(),user.getStatus());
+                String token= JwtUtils.createToken(userLoginDTO);
+                userLoginDTO.setToken(token);
+                return userLoginDTO;
+            } else {
+                UserLoginDTO userLoginDTO = new UserLoginDTO();
+                userLoginDTO.setStatus(-1);
+                userLoginDTO.setLoginName("notPassword");
+                return userLoginDTO;
+            }
+        }
     }
 
     /**

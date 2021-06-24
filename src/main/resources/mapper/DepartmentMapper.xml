@@ -16,6 +16,13 @@
         select * from dept_inf
     </select>
 
+    <select id="listDepartmentByName" resultType="com.example.staffhouse.entity.Department" parameterType="java.lang.String">
+        select * from dept_inf
+        <if test="name!=''">
+            where name = #{name}
+        </if>
+    </select>
+
     <select id="getDepartmentById" resultType="com.example.staffhouse.entity.Department" parameterType="java.lang.Integer">
         select * from dept_inf where id = #{id}
     </select>
@@ -29,13 +36,9 @@
         delete from dept_inf where id = #{id}
     </select>
 
-    <select id="updateDepartment"    parameterType="com.example.staffhouse.entity.Department">
+    <select id="updateDepartment" parameterType="com.example.staffhouse.entity.Department">
         update dept_inf set name = #{name,jdbcType=VARCHAR},
         remark = #{remark,jdbcType=VARCHAR} where id= #{id,jdbcType=INTEGER}
-    </select>
-
-    <select id="listDepartmentByUserId" resultType="com.example.staffhouse.entity.Department" >
-        select * from dept_inf order by id DESC
     </select>
 
 </mapper>

@@ -24,8 +24,8 @@ public class EmployeeController {
      * @return
      */
     @GetMapping("/getEmployeeByLike")
-    public SysResult getEmployeeByLike(Integer deptId,Integer jobId,Integer sex,String name,String phone,Integer page,Integer limit){
-        return SysResult.success("员工查询成功",employeeService.getEmployeeByLike(deptId,jobId,sex,name,phone,page,limit));
+    public SysResult getEmployeeByLike(Integer deptId,Integer jobId,Integer sex,String name,String phone,Integer page,Integer limit,String cardId){
+        return SysResult.success("员工查询成功",employeeService.getEmployeeByLike(deptId,jobId,sex,name,phone,page,limit,cardId));
     }
 
     /**
