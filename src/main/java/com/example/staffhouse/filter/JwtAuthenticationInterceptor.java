@@ -38,7 +38,6 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
             }
             //默认全部检查
             else {
-                System.out.println("被jwt拦截需要验证");
                 // 执行认证
                 if (token == null) {
                     //这里其实是登录失效,没token了

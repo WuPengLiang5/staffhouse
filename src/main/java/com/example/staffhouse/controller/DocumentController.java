@@ -4,6 +4,7 @@ import com.example.staffhouse.Vo.SysResult;
 import com.example.staffhouse.entity.Document;
 import com.example.staffhouse.service.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,13 +28,13 @@ public class DocumentController {
      * 上传文件
      */
     @PostMapping("/uploadFile")
-    public SysResult uploadFile(MultipartFile file){
+    public SysResult uploadFile(MultipartFile file) throws FileNotFoundException {
         String originName = file.getOriginalFilename();
         if (!originName.endsWith(".docx")){
              return SysResult.fail("文件类型错误");
         }
         String format = sdf.format(new Date());
-        String realPath = "D:\\IdeaProjects\\2021实训代码\\文件\\"+format;
+        String realPath = ResourceUtils.getURL("src/main/resources/static/document/" + format).getPath();
         File folder = new File(realPath);
         if (!folder.exists()){
             folder.mkdirs();
@@ -89,7 +90,7 @@ public class DocumentController {
         response.setContentType("application/octet-stream");
         response.setCharacterEncoding("utf-8");
         response.setContentLength((int) file.length());
-        response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(filename,"UTF-8") );
+        response.setHeader("Content-Disposition",  URLEncoder.encode(filename,"UTF-8") );
 
         try(BufferedInputStream bis = new BufferedInputStream(new FileInputStream(file));) {
             byte[] buff = new byte[1024];
