@@ -1,8 +1,10 @@
 package com.example.staffhouse.websocket;
 
 import com.example.staffhouse.entity.NoticeDTO;
+import com.example.staffhouse.service.NoticeService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
@@ -21,10 +23,8 @@ public class WebSocketServer {
     /**与某个客户端的连接会话，需要通过它来给客户端发送数据*/
     private Session session;
     public static CopyOnWriteArraySet<WebSocketServer> webSockets =new CopyOnWriteArraySet<>();
-    //session连接池
     private static Map<String,Session> sessionPool = new HashMap<String,Session>();
-    //接收userId
-    private String userId;
+
 
     /**
      * 连接建立成功调用的方法
@@ -34,7 +34,6 @@ public class WebSocketServer {
         this.session = session;
         webSockets.add(this);
         sessionPool.put(userId, session);
-        this.userId=userId;
         // Constants.WEBSOCKET = true;//定义常量  是否开启websocket连接
         System.out.println("【websocket消息】有新的连接，总数为:"+webSockets.size());
     }
@@ -49,13 +48,18 @@ public class WebSocketServer {
         System.out.println("【websocket消息】连接断开，总数为:"+webSockets.size());
     }
 
-    /** 收到客户端消息后调用的方法,客户端发送过来的消息
+    /**
+     * 收到客户端消息后调用的方法,客户端发送过来的消息
      *
      * @param message
      */
     @OnMessage
     public void onMessage(String message) {
         System.out.println("【websocket消息】收到客户端消息:"+message);
+        if (message.equals("更新数据")){
+            List<NoticeDTO> noticeList=getMessageService().listNotice();
+            sendAllMessage(noticeList);
+        }
     }
 
     /**
@@ -84,22 +88,28 @@ public class WebSocketServer {
         }
     }
 
-    /**
-     * 单点信息
-     * @param userId
-     * @param message
-     */
+    // 此为单点消息
     public void sendOneMessage(String userId, String message) {
         Session session = sessionPool.get(userId);
         System.out.println(userId);
         /*在发送数据之前先确认 session是否已经打开 使用session.isOpen() 为true 则发送消息
          * 不然会报错:The WebSocket session [0] has been closed and no method (apart from close()) may be called on a closed session */
-        if (session != null && session.isOpen()) {
-            try {
-                session.getAsyncRemote().sendText(message);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+//        if (session != null && session.isOpen()) {
+//            try {
+//                session.getAsyncRemote().sendText(message);
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//            }
+//        }
+        try {
+            session.getBasicRemote().sendText(message);
+        }catch (Exception e){
+            e.printStackTrace();
         }
+    }
+
+
+    public NoticeService getMessageService() {
+        return FrameSpringBeanUtil.getBean(NoticeService.class);
     }
 }

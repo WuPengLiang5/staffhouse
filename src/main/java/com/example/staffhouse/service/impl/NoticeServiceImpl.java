@@ -27,6 +27,7 @@ public class NoticeServiceImpl implements NoticeService {
         List<Notice> notices = noticeDao.listNotice();
         for(int i=0;i<notices.size();i++){
             Notice notice=notices.get(i);
+//            System.out.println(notice);
             UserInfo userInfo = userDao.getUserInfoById(notice.getUserId());
             NoticeDTO noticeDTO = new NoticeDTO(notice.getId(),notice.getUserId(),
                     notice.getTitle(),notice.getContent(),notice.getCreateDate());
